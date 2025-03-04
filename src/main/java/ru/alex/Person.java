@@ -37,7 +37,7 @@ public class Person {
     }
 
     public OptionalInt getAge() {
-        return OptionalInt.of(this.age);
+        return age != null ? OptionalInt.of(age) : OptionalInt.empty();
     }
 
     public String getAddress() {
@@ -50,12 +50,14 @@ public class Person {
 
     public void happyBirthday() {
         if (hasAge()) {
-            this.age++;
+            age++;
+        } else {
+            throw new IllegalStateException("Возраст неизвестен, нельзя увеличить.");
         }
     }
 
     public PersonBuilder newChildBuilder() {
-        return new PersonBuilder().setSurname(this.surname).setAge(1).setAddress(this.address);
+        return new PersonBuilder().setSurname(this.surname).setAge(0).setAddress(this.address);
     }
 
     @Override

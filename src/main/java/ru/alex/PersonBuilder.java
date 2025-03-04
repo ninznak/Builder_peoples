@@ -30,18 +30,16 @@ public class PersonBuilder {
     }
 
     public Person build() {
-        Person person = null;
-        if (name != null && surname != null && age != null) {
+        if (name == null || surname == null) {
+            throw new IllegalStateException("Не хватает обязательных полей: имя и фамилия обязательны.");
+        }
+        Person person;
+        if (age != null) {
             person = new Person(name, surname, age);
-        } else if (name != null && surname != null) {
+        } else {
             person = new Person(name, surname);
         }
-        if (address != null) {
-            person.setAddress(address);
-        }
-        if (name == null || surname == null) {
-            throw new IllegalStateException("Не хватает обязательных полей!");
-        }
+        person.setAddress(address);
         return person;
     }
 }
